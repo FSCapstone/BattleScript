@@ -10,8 +10,8 @@ app.use(morgan('dev'));
 // body parsing middleware
 app.use(express.json());
 
-//api routes
-
+// auth and api routes
+// app.use('/auth', require('./auth'));
 app.use('/api', require('./api'));
 
 app.get('/', (req, res) =>
