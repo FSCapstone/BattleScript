@@ -20,17 +20,24 @@ router.post('/', async (req, res, next) => {
       roundId: 1,
     });
     newLobby.loadNewQuestions('all');
-    await newLobby.createUser({
-      name: username,
+    const newUser = await newLobby.createUser({
+      username: username,
       isHost: true,
       correctPoints: 0,
       incorrectPoints: 0,
+      lobbyId: newLobby.id,
     });
-    const lobbyWithUsers = await Lobby.findOne({
-      where: { name: lobbyName },
-      include: { model: User },
-    });
-    res.json(lobbyWithUsers);
+    //HGG - I'm removing this from this call because I've run into issue with one to many async calls in a single request leads to this call actually happening before the others. (This was happening here when I was testing it and nothing was being sent even though the user and lobby were created and I could see them in postico.)
+    // const lobbyWithUsers = await Lobby.findOne({
+    //   where: { name: newLobby.name },
+    //   include: {
+    //     model: User,
+    //     where: {
+    //       lobbyId: lobby.id,
+    //     },
+    //   },
+    // });
+    res.json(newLobby);
   } catch (err) {
     next(err);
   }
@@ -41,7 +48,7 @@ router.post('/:lobbyName', async (req, res, next) => {
     const { lobbyName } = req.params;
     const { username } = req.body;
     const newUser = await User.create({
-      name: username,
+      username: username,
       isHost: false,
       correctPoints: 0,
       incorrectPoints: 0,
@@ -58,10 +65,14 @@ router.post('/:lobbyName', async (req, res, next) => {
   }
 });
 //simple get request to get Lobby info, may not need to be used because of sockets
+//HGG - we are going to need to use this to get the users in each lobby eager loaded.
 router.get('/:lobbyName', async (req, res, next) => {
   try {
     const { lobbyName } = req.params;
-    const currLobby = await Lobby.findOne({ where: { name: lobbyName } });
+    const currLobby = await Lobby.findOne({
+      where: { name: lobbyName },
+      include: { model: User },
+    });
     res.json(currLobby);
   } catch (err) {
     next(err);
