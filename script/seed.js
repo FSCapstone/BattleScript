@@ -211,6 +211,113 @@ workshop problems, though!
 });`,
       difficulty: 'medium',
     },
+    {
+      title: `My Index Of`,
+      question: `Define a function, "myIndexOf", that accepts three arguments:
+  1. source (string)
+  2. searchValue (string)
+  3. startIdx (number) - optional
+
+If the "source" contains the "searchValue", return the index at which the
+"searchValue" starts. If the "searchValue" appears more than once in the
+"source", return the index from the first occurance of the "searchValue".
+If the "searchValue" doesn't exist in the "source", return -1.
+
+If a startIdx is passed into the function, ignore any instances of the
+"searchValue" that occur before that index. If no "startIdx" is provided,
+start searching from the beginning of the "source".
+
+Do not use the built-in [".indexOf" string method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf) in your answer. Feel free to
+use it in all future workshop problems though!
+
+
+myIndexOf('hello', 'h'); // => 0
+myIndexOf('hello', 'e'); // => 1
+myIndexOf('hello', 'l'); // => 2
+myIndexOf('hello', 'l'); // => 2
+myIndexOf('hello', 'o'); // => 4
+
+myIndexOf('twice twice', 'ice'); => 2
+
+// find the index of the first instance of 'ice' starting at index 5.
+myIndexOf('twice twice', 'ice', 5); => 8
+
+myIndexOf('happy string', 'sad'); => -1`,
+      testSpecs: `function myIndexOf(source, searchValue, startIdx) {
+  if (startIdx === undefined) {
+    startIdx = 0;
+  }
+
+  for (let i = startIdx; i <= source.length - searchValue.length; i++) {
+    let substring = source.slice(i, i + searchValue.length);
+
+    if (substring === searchValue) {
+      // ...return the current index
+      return i;
+    }
+  }
+
+  return -1;
+}
+
+function myIndexOf2(source, searchValue, startIdx = 0) {
+  for (let i = startIdx; i <= source.length - searchValue.length; i++) {
+    let substring = source.slice(i, i + searchValue.length);
+
+    if (substring === searchValue) {
+      return i;
+    }
+  }
+
+  return -1;
+}
+`,
+      difficulty: `medium`,
+    },
+    {
+      title: `Most Vowels`,
+      question: `Define a function, "mostVowels", that accepts one argument, a string of words.
+
+"mostVowels" should return the word that has the most vowels.
+
+
+mostVowels('I am a keeper with some real rhythms'); // => keeper
+
+
+If none of the words have any vowels, return an empty string.
+
+
+mostVowels('try my gym'); // => ''`,
+      testSpecs: `describe('mostVowels', () => {
+
+  it('is a function', () => {
+    expect(typeof mostVowels).toEqual('function');
+  });
+
+  it('returns a string', () => {
+    let returnedValue = mostVowels('Wit beyond measure is man\'s greatest treasure.');
+    expect(typeof returnedValue).toEqual('string');
+  });
+
+  it('returns the word with the most vowels', () => {
+    let returnedValue = mostVowels('Wit beyond measure is man\'s greatest treasure.');
+    expect(returnedValue).toEqual('measure');
+  });
+
+  it('returns the word with the most vowels even if it\'s the last string in the sentence', () => {
+    let returnedValue = mostVowels('Give her hell from us, Peeves.');
+    expect(returnedValue).toEqual('Peeves');
+  });
+
+  it('returns an empty string if none of the inputted words have vowels', () => {
+    let returnedValue = mostVowels('why dry my sly lynx?');
+    expect(returnedValue).toEqual('');
+  });
+
+});
+`,
+      difficulty: `hard`,
+    },
     // {
     //   title: ``,
     //   question: ``,
@@ -333,6 +440,76 @@ function exponentiate2(base, power) {
 }
 `,
       questionId: 5,
+    },
+    {
+      solution: `// Option 1
+function myIndexOf(source, searchValue, startIdx) {
+  if (startIdx === undefined) {
+    startIdx = 0;
+  }
+
+  for (let i = startIdx; i <= source.length - searchValue.length; i++) {
+    let substring = source.slice(i, i + searchValue.length);
+
+    if (substring === searchValue) {
+      // ...return the current index
+      return i;
+    }
+  }
+
+  return -1;
+}
+// Option 2
+function myIndexOf2(source, searchValue, startIdx = 0) {
+  for (let i = startIdx; i <= source.length - searchValue.length; i++) {
+    let substring = source.slice(i, i + searchValue.length);
+
+    if (substring === searchValue) {
+      return i;
+    }
+  }
+
+  return -1;
+}`,
+      questionId: 6,
+    },
+    {
+      solution: `function mostVowels(sentence) {
+  let currentWord = '';
+  let currentVowelCount = 0;
+
+  let maxWord = '';
+  let maxVowelCount = 0;
+
+  for (let i = 0; i < sentence.length; i++) {
+    let char = sentence[i];
+    if (char !== ' ' && i !== sentence.length - 1) {
+      currentWord += char;
+      if (isVowel(char)) {
+        currentVowelCount += 1;
+      }
+    } else {
+      if (currentVowelCount > maxVowelCount) {
+        maxVowelCount = currentVowelCount;
+        maxWord = currentWord;
+      }
+      currentWord = '';
+      currentVowelCount = 0;
+    }
+  }
+  return maxWord;
+  function isVowel(char) {
+    let vowels = 'aeiouAEIOU';
+
+    if (vowels.indexOf(char) >= 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+`,
+      questionId: 7,
     },
     // {
     //   solution: ``,
