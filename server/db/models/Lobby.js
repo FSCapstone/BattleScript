@@ -43,32 +43,39 @@ Lobby.prototype.loadNewQuestions = async function (type = 'all') {
     where: { name: this.name },
     include: { model: Question },
   });
+  // console.log('current Lobby from Prototype', currLobby);
   if (currLobby.questions.length > 0) {
     for (let i = 0; i < currLobby.questions.length; i++) {
       prevQuestions.push(currLobby.questions[i].id);
     }
   }
-  function getRandomInt(min, max) {
-    return Math.random() * (max - min) + min;
+  console.log('previous questions', prevQuestions);
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
   }
   let questionList;
   switch (type) {
     case 'easy':
-      questionList = await Question.findAll({ where: { category: 'easy' } });
+      questionList = await Question.findAll({ where: { difficulty: 'easy' } });
       break;
     case 'medium':
-      questionList = await Question.findAll({ where: { category: 'medium' } });
+      questionList = await Question.findAll({
+        where: { difficulty: 'medium' },
+      });
       break;
     case 'hard':
-      questionList = await Question.findAll({ where: { category: 'hard' } });
+      questionList = await Question.findAll({ where: { difficulty: 'hard' } });
       break;
     default:
       questionList = await Question.findAll();
   }
 
-  while (newQuestions.length < 5) {
+  // console.log('question list', questionList);
+
+  while (newQuestions.length < 3) {
+    const randomInt = getRandomInt(questionList.length);
+    // console.log(randomInt);
     if (prevQuestions.length > 0) {
-      const randomInt = getRandomInt(0, questionList.length - 1);
       if (
         !prevQuestions.includes(questionList[randomInt].id) &&
         !newQuestions.includes(questionList[randomInt].id)
@@ -77,7 +84,13 @@ Lobby.prototype.loadNewQuestions = async function (type = 'all') {
       } else {
         continue;
       }
+    } else if (!newQuestions.includes(questionList[randomInt].id)) {
+      newQuestions.push(questionList[randomInt].id);
+    } else {
+      continue;
     }
   }
+  console.log('new Questions', newQuestions);
+  // return newQuestions;
   this.setQuestions(newQuestions);
 };

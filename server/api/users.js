@@ -17,3 +17,15 @@ router.get('/', async (req, res, next) => {
     next(err);
   }
 });
+
+router.get('/:lobbyId', async (req, res, next) => {
+  try {
+    const lobbyId = req.params.lobbyId;
+    const users = await User.findAll({
+      where: { lobbyId },
+    });
+    res.json(users);
+  } catch (err) {
+    next(err);
+  }
+});

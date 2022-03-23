@@ -85,18 +85,20 @@ router.put('/:lobbyName', async (req, res, next) => {
     const { reset } = req.body;
     if (reset) {
       const [updatedRows, updatedLobbies] = await Lobby.update(
-        { roundId: 1 },
+        { round: 1 },
         { where: { name: lobbyName }, returning: true }
       );
+      console.log(updatedLobbies);
       // NEED TO LOAD NEW QUESTIONS ONTO LOBBY
       updatedLobbies[0].loadNewQuestions('all');
+      console.log(updatedLobbies);
       const updatedLobby = await Lobby.findOne({
         where: { name: lobbyName },
         include: [{ model: User }, { model: Question }],
       });
       res.json(updatedLobby);
     } else {
-      await Lobby.increment({ roundId: 1 }, { where: { name: lobbyName } });
+      await Lobby.increment({ round: 1 }, { where: { name: lobbyName } });
       const updatedLobby = await Lobby.findOne({
         where: { name: lobbyName },
         include: [{ model: User }, { model: Question }],
