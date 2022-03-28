@@ -13,6 +13,8 @@ const Lobby = () => {
     room.send('start', {
       gameStatus: 'prompt',
     });
+    //when pressing start game you also start the timer for the first round.
+    room.send('startTimer');
   };
   console.log(room.users);
 

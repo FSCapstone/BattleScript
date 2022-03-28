@@ -31,6 +31,7 @@ class GameState extends Schema {
     this.users = new MapSchema();
     //Questions array
     this.question = new QuestionSchema();
+    this.timer = 0;
     this.gameStatus = 'lobby';
     this.messages = new ArraySchema();
     //votes and answers were separate so that the objects being passed back and forth are smaller.
@@ -43,6 +44,7 @@ class GameState extends Schema {
 schema.defineTypes(GameState, {
   users: { map: UserSchema },
   question: QuestionSchema,
+  timer: 'number',
   gameStatus: 'string',
   messages: [MessagesSchema],
   // answer: map all answers
@@ -57,6 +59,7 @@ class GameRoom extends colyseus.Room {
     super();
     this.questions = [];
     this.roundNumber = 1;
+    this.timer = 0;
   }
 
   async onCreate(options) {
@@ -77,6 +80,44 @@ class GameRoom extends colyseus.Room {
         testSpecs: this.state.question.testSpecs,
       };
       this.broadcast('getPrompt', prompt);
+    });
+
+    //TIMER
+    this.onMessage('startTimer', (client, data) => {
+      this.clock.clear();
+      //amount of time to answer each question.
+      let timeToAnswer = 5000;
+      this.state.timer = timeToAnswer / 1000;
+      this.clock.setTimeout(() => {
+        this.clock.start();
+        // this.broadcast('startTimer', timer);
+      }, 0);
+
+      this.delayedInterval = this.clock.setInterval(() => {
+        console.log(
+          'Time now ' +
+            new Date(timeToAnswer - this.clock.elapsedTime).getSeconds()
+        );
+        this.state.timer = new Date(
+          timeToAnswer - this.clock.elapsedTime
+        ).getSeconds();
+        // console.log('time remaining', timer.timeRemaining);
+        // this.broadcast('startTimer', timer);
+      }, 1000);
+
+      // After 5 seconds clear the timeout;
+      // this will *stop and destroy* the timeout completely
+      this.clock.setTimeout(() => {
+        this.delayedInterval;
+        this.clock.stop(() => {
+          this.state.timer = 0;
+          // this.broadcast('startTimer', timer);
+        });
+      }, timeToAnswer);
+      this.clock.setTimeout(() => {
+        this.clock.clear();
+        console.log('last clock', this.clock);
+      }, timeToAnswer + 1000);
     });
     this.onMessage('start', (client, { gameStatus }) => {
       this.state.gameStatus = gameStatus;
@@ -112,6 +153,7 @@ class GameRoom extends colyseus.Room {
         passVote: 1,
       });
     });
+
     console.log('Room Created');
     this.dispatcher.dispatch(new insertQuestion(), {
       roundNumber: this.roundNumber,

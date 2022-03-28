@@ -14,6 +14,7 @@ import passedAnswersReducer from './passAnswers';
 import passedVotesReducer from './passVoting';
 import auth from './auth';
 import messageReducer from './message';
+import timerReducer from './timer';
 
 const reducer = combineReducers({
   room: roomReducer,
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   passedAnswers: passedAnswersReducer,
   failedVotes: failedVotesReducer,
   passedVotes: passedVotesReducer,
+  timer: timerReducer,
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))

@@ -6,10 +6,12 @@ import { useColyseus } from './ColyseusContext';
 import * as Colyseus from 'colyseus.js';
 import { setGameStatus } from '../store/gameStatus';
 import { setPrompt } from '../store/prompt';
+import { setTimer } from '../store/timer';
 import Lobby from './Lobby';
 import Prompt from './Prompt';
 import Chat from './Chat';
 import Tally from './Tally';
+import Timer from './Timer';
 
 /**
  * MAIN GAME INSTANCE, THIS COMPONENT WILL RENDER OTHER COMPONENTS
@@ -25,6 +27,7 @@ const Game = () => {
   const users = useSelector((state) => state.users);
 
   const gameStatus = useSelector((state) => state.gameStatus);
+  const timer = useSelector((state) => state.timer);
 
   room.state.users.onAdd = (user, key) => {
     dispatch(addUser(key, user));
@@ -44,11 +47,16 @@ const Game = () => {
   room.onMessage('getPrompt', (prompt) => {
     dispatch(setPrompt(prompt));
   });
+  room.state.listen('timer', (curr, prev) => {
+    // console.log(curr);
+    dispatch(setTimer(curr));
+  });
   const renderSwitch = (gameStatus) => {
     switch (gameStatus) {
       case 'lobby': {
         return (
           <div>
+            {/* <Timer /> */}
             <Lobby />
           </div>
         );
@@ -56,13 +64,19 @@ const Game = () => {
       case 'prompt': {
         return (
           <div>
+            {/* <Timer /> */}
             <Prompt />
           </div>
         );
       }
 
       case 'tally': {
-        return <Tally />;
+        return (
+          <div>
+            {/* <Timer /> */}
+            <Tally />;
+          </div>
+        );
       }
 
       default: {
@@ -73,6 +87,9 @@ const Game = () => {
 
   return (
     <div>
+      {/* <div>
+        <Timer />
+      </div> */}
       <div>{renderSwitch(gameStatus)}</div>
       <div>
         <Chat />
