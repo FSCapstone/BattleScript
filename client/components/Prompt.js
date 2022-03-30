@@ -89,9 +89,9 @@ const Prompt = () => {
         <script>
           window.iFrameResizer = {
             // for testing on local host
-            // targetOrigin: 'http://localhost:8080'
+            targetOrigin: 'http://localhost:8080'
             // for deploying on heroku
-            targetOrigin: 'https://capstone-battlescript.herokuapp.com/'
+            // targetOrigin: 'https://capstone-battlescript.herokuapp.com/'
           }
         </script>
         <script src="../iframeResizer.contentWindow.min.js"></script>
@@ -140,9 +140,9 @@ const Prompt = () => {
             sandbox="allow-scripts allow-same-origin"
             scrolling="true"
             // for testing on local host
-            // checkOrigin={[`http://localhost:8080`]}
+            checkOrigin={[`http://localhost:8080`]}
             // for heroku deployment
-            checkOrigin={[`https://fsa-battlescript.herokuapp.com/`]}
+            // checkOrigin={[`https://fsa-battlescript.herokuapp.com/`]}
           />
         </div>
       ) : (
@@ -156,9 +156,7 @@ const Prompt = () => {
               wordWrap: true,
             }}
           />
-          <button
-            className="submit-prompt-button"
-            onClick={() => clickHandler()}>
+          <button className="submit-prompt-button" onClick={() => clickHandler()}>
             Submit
           </button>
         </div>
