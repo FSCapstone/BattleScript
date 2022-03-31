@@ -53,6 +53,17 @@ async function seed() {
 
 });`,
       difficulty: 'easy',
+      starterCode: `function onlyOdds(/* your code here*/) {
+  let sum = 0;
+  for (/* your code here*/) {
+
+    if (/* your code here*/) {
+
+
+    }
+  }
+  return;
+}`,
       solution: `//Option 1
 function onlyOdds(num) {
   let sum = 0;
@@ -106,6 +117,21 @@ crazyCaps('fullstack is amazing'); // => fUlLsTaCk iS AmAzInG!`,
 });
 `,
       difficulty: 'easy',
+      starterCode: `function crazyCaps(/* your code here*/) {
+
+
+
+  for (/* your code here*/) {
+
+    if (/* your code here*/) {
+
+
+    } else {
+
+    }
+  }
+  return
+}`,
       solution: `function crazyCaps(originalString) {
   let crazyString = '';
 
@@ -153,6 +179,18 @@ bacteriaTime(1, 8); // => 60`,
 
 });`,
       difficulty: 'medium',
+      starterCode: `function bacteriaTime(currentNum, targetNum) {
+  if (/* your code here*/) {
+    return 'targetNum must be larger than currentNum';
+  }
+
+
+  while (/* your code here*/) {
+    currentNum *= /* your code here*/
+    numMinutes += /* your code here*/
+  }
+  return ;
+}`,
       solution: `function bacteriaTime(currentNum, targetNum) {
   if (targetNum < currentNum) {
     return 'targetNum must be larger than currentNum';
@@ -203,6 +241,18 @@ exponentiate(3, 4)    // => 81`,
 
 });`,
       difficulty: 'easy',
+      starterCode: `/* These prompts are provided to get you started,
+but are not the only way to attak the problem.
+Feel free to delete all of the below and start your own code. */
+function exponentiate(base, power) {
+  let result =
+
+  for (/* your code here*/) {
+    result *= base;
+  }
+
+  return ;
+}`,
       solution: `// Option 1
 function exponentiate(base, power) {
   let result = 1;

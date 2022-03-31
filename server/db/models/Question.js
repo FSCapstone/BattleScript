@@ -25,6 +25,9 @@ const Question = db.define(
         notEmpty: true,
       },
     },
+    starterCode: {
+      type: DataTypes.TEXT,
+    },
     testSpecs: {
       type: DataTypes.TEXT,
       allowNull: false,
