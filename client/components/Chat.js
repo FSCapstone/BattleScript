@@ -11,6 +11,20 @@ const AlwaysScrollToBottom = () => {
   return <div ref={elementRef} />;
 };
 
+const msgWrap = (msg) => {
+  if (msg.length > 60) {
+    msg = '-- Message to Long Max Charcters is 60 --';
+    return msg;
+  }
+  if (msg.length < 18 || msg.includes(' ')) {
+    return msg;
+  }
+  if (msg.length >= 18 && !msg.includes(' ')) {
+    msg = msg.substring(0, 18) + ' ' + msgWrap(msg.substring(18, msg.length));
+    return msg;
+  }
+};
+
 const Chat = () => {
   const dispatch = useDispatch();
   const [currMessage, setCurrMessage] = useState('');
@@ -50,7 +64,9 @@ const Chat = () => {
                   }
                 >
                   <div className={styles.listUser}>{message.username}</div>
-                  <div className={styles.listMessage}> {message.message}</div>
+                  <div className={styles.listMessage}>
+                    {msgWrap(message.message)}
+                  </div>
                   <AlwaysScrollToBottom />
                 </li>
               );

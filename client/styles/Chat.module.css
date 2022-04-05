@@ -10,7 +10,7 @@
 
 .messages {
   background-color: rgba(34, 99, 112, 0.4);
-  height: 3.3em;
+  height: 4.3em;
   list-style-type: none;
   margin: 0.15em;
   margin-left: 0.05em;
@@ -25,13 +25,13 @@
 
 .myMessage {
   background-color: rgba(255, 99, 71, 0.4);
-  height: 3.3em;
+  height: 4.3em;
   list-style-type: none;
   margin: 0.15em;
   margin-left: -1.95em;
   padding: 1em;
-  margin-right: 4.55em;
-  border-radius: 1.25em;
+  margin-right: 2.55em;
+  border-radius: 2.25em;
   font-family: 'Monaco', 'Courier New', monospace;
   display: flex;
   flex-direction: row;
