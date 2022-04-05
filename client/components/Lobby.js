@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addUser } from '../store/users';
 import styles from '../styles/Lobby.module.css';
@@ -8,9 +8,15 @@ const Lobby = () => {
   const users = useSelector((state) => state.users);
   const room = useSelector((state) => state.room);
 
+  useEffect(() => {
+    room.send('resetTimer');
+  }, []);
+  useEffect(() => {
+    room.send('round');
+  }, []);
   return (
     <div>
-      <h4 className={styles.roomId}> Lobby: room Id : {room.id} </h4>
+      <h4 className={styles.lobbyText}></h4>
       <div className={styles.lobbyWrapper}>
         {Object.keys(users).map((clientId) => {
           return (

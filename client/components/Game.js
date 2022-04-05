@@ -23,6 +23,7 @@ import NonePass from './NonePass';
 import Final from './Final';
 import styles from '../styles/Button.module.css';
 import ChatBtn from './ChatBtn';
+import { setRoundNumber } from '../store/roundNumber';
 
 /**
  * MAIN GAME INSTANCE, THIS COMPONENT WILL RENDER OTHER COMPONENTS
@@ -37,26 +38,13 @@ const Game = () => {
   // const client = useSelector((state) => state.client);
   const room = useSelector((state) => state.room);
   const users = useSelector((state) => state.users);
-  console.log('roooooooom ', room);
+  const round = useSelector((state) => state.round);
+  // console.log('roooooooom ', room)
   const gameStatus = useSelector((state) => state.gameStatus);
   useEffect(() => {
-    room.state.users.onAdd = (user, key) => {
-      dispatch(addUser(key, user));
-      user.onChange = (changes) => {
-        changes.forEach((change) => {
-          dispatch(
-            updateUser({ key: key, field: change.field, value: change.value })
-          );
-        });
-      };
-      console.log(user, 'has been added at', key);
-    };
-
-    room.state.users.onRemove = (user, key) => {
-      delete users[key];
-
-      dispatch(removeUser(users));
-    };
+    room.state.listen('round', (curr, prev) => {
+      dispatch(setRoundNumber(curr));
+    });
     room.state.listen('gameStatus', (curr, prev) => {
       dispatch(setGameStatus(curr));
     });
@@ -77,6 +65,25 @@ const Game = () => {
       dispatch(setPrompt(prompt));
     });
   }, [room]);
+  useEffect(() => {
+    room.state.users.onAdd = (user, key) => {
+      dispatch(addUser(key, user));
+      user.onChange = (changes) => {
+        changes.forEach((change) => {
+          dispatch(
+            updateUser({ key: key, field: change.field, value: change.value })
+          );
+        });
+      };
+      console.log(user, 'has been added at', key);
+    };
+    room.state.users.onRemove = (user, key) => {
+      console.log(users);
+      delete users[key];
+      console.log(users);
+      dispatch(removeUser(users));
+    };
+  }, [users]);
   const renderSwitch = (gameStatus) => {
     switch (gameStatus) {
       case 'lobby': {

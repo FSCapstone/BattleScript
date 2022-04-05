@@ -249,7 +249,7 @@ const NoneFail = () => {
   const stop = () => {
     setTimeout(function () {
       confetti.stop();
-    }, 15000); // 5000 is time that after 5 second stop the confetti ( 5000 = 5 sec)
+    }, 5000); // 5000 is time that after 5 second stop the confetti ( 5000 = 5 sec)
   };
   // after this here we are calling both the function so it works
   start();
@@ -257,8 +257,7 @@ const NoneFail = () => {
 
   return (
     <div>
-      {' '}
-      <div>
+      <div className="congratsFail">
         CONGRATS! Everyone passed all of the test specs for this round! Take a
         minute to pat yourself on the back.
         <div></div>

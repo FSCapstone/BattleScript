@@ -34,6 +34,7 @@ class GameState extends Schema {
     this.gameStatus = 'lobby';
     this.hostKey = '';
     this.timer = 1;
+    this.round = 0;
     this.messages = new ArraySchema();
     //votes and answers were separate so that the objects being passed back and forth are smaller.
     this.failAnswers = new MapSchema();
@@ -48,6 +49,7 @@ schema.defineTypes(GameState, {
   gameStatus: 'string',
   hostKey: 'string',
   timer: 'number',
+  round: 'number',
   messages: [MessagesSchema],
   // answer: map all answers
   failAnswers: { map: AnswerSchema },
@@ -70,9 +72,13 @@ class GameRoom extends colyseus.Room {
     this.dispatcher = new command.Dispatcher(this);
     this.questions = await getQuestions();
     this.maxClients = 6;
-    // this.state.roundNumber = this.roundNumber;
     this.gameStatus = 'lobby';
+
     //CLIENT SENDS MESSAGE TO GET QUESTION, SENDS QUESTION TO CLIENT
+    this.onMessage('round', (client, data) => {
+      this.state.round = 0;
+      this.broadcast('round', this.state.round);
+    });
     this.onMessage('getPrompt', (client, data) => {
       let prompt = {
         id: this.state.question.id,
@@ -120,7 +126,13 @@ class GameRoom extends colyseus.Room {
     this.onMessage('startTimer', (client, data) => {
       this.clock.clear();
       this.state.timer = 1;
-      let timeToAnswer = 150000;
+      let timeToAnswer;
+      if (this.state.gameStatus === 'nonepass') {
+        timeToAnswer = 15000;
+      } else {
+        timeToAnswer = 150000;
+      }
+
       this.state.timer = timeToAnswer / 1000;
       this.clock.setTimeout(() => {
         this.clock.start();

@@ -51,7 +51,7 @@
 .navTitle {
   position: absolute;
   top: 3.3%;
-  left: 45%;
+  left: 46%;
 }
 #rulesComp {
   position: absolute;
@@ -66,8 +66,17 @@
 }
 
 #centerLogo {
+  list-style: none;
+  width: 50%;
+  text-decoration: none;
+  color: white;
+  transition: all 200ms ease-in;
+  cursor: pointer;
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 1rem;
   position: relative;
-  margin: auto;
+  top: 0em;
+  right: 1em;
 }
 
 #githubLogo {

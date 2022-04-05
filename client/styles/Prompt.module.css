@@ -1,0 +1,200 @@
+.promptContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.promptSolution {
+  display: flex;
+  flex-direction: column;
+  margin: 1em 0 0 2em;
+  width: 35vw;
+  height: 75vh;
+}
+
+.submitPromptButton {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5em 0 0 2em;
+}
+.votingSubmitContainer {
+  display: flex;
+  flex-direction: column;
+}
+.finishedSubmissionList {
+  display: flex;
+  margin: 1em 0 0 1.5em;
+  height: 26em;
+  width: 24em;
+  background-color: rgba(28, 28, 28, 0.5);
+  border: 1px solid rgba(28, 128, 145, 0.5);
+}
+
+.passedUsers {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  color: rgb(205, 133, 111);
+  position: relative;
+  left: 3.75em;
+}
+
+.failedUsers {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  color: rgb(205, 133, 111);
+  position: relative;
+  right: -12em;
+}
+
+.divider {
+  border-left: 1px solid rgba(28, 128, 145, 0.5);
+  height: 25.875em;
+  margin-left: 4.5em;
+}
+
+.passedUserContainer {
+  position: relative;
+  top: -3em;
+  margin-bottom: -4em;
+}
+.failedUserContainer {
+  position: relative;
+  top: -3em;
+  margin-bottom: -4em;
+}
+
+.passedUsers,
+.failedUsers > h4 {
+  position: relative;
+  top: -2.5em;
+}
+
+.username {
+  text-align: center;
+  position: relative;
+  top: -0.65em;
+}
+
+.avatar {
+  position: relative;
+  top: 0em;
+  left: 1.25em;
+}
+
+.submitBtn,
+.submitBtn:after {
+  width: 150px;
+  height: 76px;
+  line-height: 78px;
+  font-size: 20px;
+  font-family: 'Bebas Neue', sans-serif;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.75) 5%,
+    rgba(1, 1, 1, 0.75) 5%
+  );
+  border: 0;
+  color: #fff;
+  letter-spacing: 3px;
+  box-shadow: 6px 0px 0px #ffffff;
+  outline: transparent;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 4rem;
+  margin: auto;
+}
+
+.submitBtn:after {
+  --slice-0: inset(50% 50% 50% 50%);
+  --slice-1: inset(80% -6px 0 0);
+  --slice-2: inset(50% -6px 30% 0);
+  --slice-3: inset(10% -6px 85% 0);
+  --slice-4: inset(40% -6px 43% 0);
+  --slice-5: inset(80% -6px 5% 0);
+
+  content: 'ALTERNATE TEXT';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 3%,
+    #ffffff 3%,
+    #1531af 5%,
+    #1aa71a 5%
+  );
+  text-shadow: -3px -3px 0px #f8f005, 3px 3px 0px #62dd57;
+  clip-path: var(--slice-0);
+}
+
+.submitBtn:hover:after {
+  animation: 1s glitch;
+  animation-timing-function: steps(2, end);
+}
+
+@keyframes glitch {
+  0% {
+    clip-path: var(--slice-1);
+    transform: translate(-20px, -10px);
+  }
+  10% {
+    clip-path: var(--slice-3);
+    transform: translate(10px, 10px);
+  }
+  20% {
+    clip-path: var(--slice-1);
+    transform: translate(-10px, 10px);
+  }
+  30% {
+    clip-path: var(--slice-3);
+    transform: translate(0px, 5px);
+  }
+  40% {
+    clip-path: var(--slice-2);
+    transform: translate(-5px, 0px);
+  }
+  50% {
+    clip-path: var(--slice-3);
+    transform: translate(5px, 0px);
+  }
+  60% {
+    clip-path: var(--slice-4);
+    transform: translate(5px, 10px);
+  }
+  70% {
+    clip-path: var(--slice-2);
+    transform: translate(-10px, 10px);
+  }
+  80% {
+    clip-path: var(--slice-5);
+    transform: translate(20px, -10px);
+  }
+  90% {
+    clip-path: var(--slice-1);
+    transform: translate(-10px, 0px);
+  }
+  100% {
+    clip-path: var(--slice-1);
+    transform: translate(0);
+  }
+}
+
+@media (min-width: 768px) {
+  .submitBtn,
+  .submitBtn:after {
+    width: 200px;
+    height: 86px;
+    line-height: 88px;
+  }
+}

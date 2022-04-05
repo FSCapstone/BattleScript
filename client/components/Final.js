@@ -2,11 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styles from '../styles/Final.module.css';
 
-const dummyUser = {
-  total: 5000,
-  username: 'asdjoaomdo',
-};
-
 const Final = () => {
   const users = useSelector((state) => state.users);
 
@@ -40,19 +35,14 @@ const Final = () => {
 
       <div className={styles.playerContainer}>
         <div className={styles.avatar}>
-          <img src="./Images/Avatars/doge.png" />
+          <img src={users[winner].avatarURL} />
         </div>
-        <p>{dummyUser.username}</p>
+        <p>{users[winner].username}</p>
 
-        <p>Total Points: {dummyUser.total}</p>
+        <p>Total Points: {users[winner].correctPoints + users[winner].incorrectPoints}</p>
       </div>
     </div>
   );
 };
 
 export default Final;
-
-{
-  /* <div>Winner: {users[winner].username}</div>
-      <div>Total Score: {users[winner].correctPoints + users[winner].incorrectPoints}</div> */
-}

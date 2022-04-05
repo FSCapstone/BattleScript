@@ -45,7 +45,7 @@ class insertQuestion extends command.Command {
     temp.title = currQuestion.title;
     temp.question = currQuestion.question;
     temp.testSpecs = currQuestion.testSpecs;
-    temp.starterCode = currQuestion.starterCode
+    temp.starterCode = currQuestion.starterCode;
     this.state.question = temp;
   }
 }

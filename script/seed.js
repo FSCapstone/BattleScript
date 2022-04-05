@@ -456,7 +456,7 @@ function myIndexOf2(source, searchValue, startIdx = 0) {
       title: `Sum of all in an Array`,
       question: `Define a funciton sumAll, that accepts an array as an argument.
       the function should return the sum of all the items in the given array
-      For ex: 
+      For ex:
       sumAll([1,2,3]) ---> return 6
       sumAll([7,3,4]) ---> return 14
       sumAll([1]) -------> return 1`,
@@ -479,17 +479,17 @@ function myIndexOf2(source, searchValue, startIdx = 0) {
           let returnedValue = sumAll([1,2,3]);
           expect(returnedValue).to.equal(6);
         });
-        it('returns the sum of all elements of large array, ()=> {
+        it('returns the sum of all elements of large array', ()=> {
           let returnedValue = sumAll([1,2,3,4,1,2,3,4,1,2,3,4]);
           expect(returnedValue).to.equal(30);
         });
         it('returns the value of single array', () => {
           let returnValue = sumAll([1]);
           expect(returnedValue).to.equal(1);
-        })
-      })`,
+        });
+      });`,
       difficulty: `easy`,
-      solution: `//Option 1 
+      solution: `//Option 1
       const sumAll = (arr) => {
            let sum = 0;
            for (let i = 0; i < array.length; i++) {
@@ -501,7 +501,7 @@ function myIndexOf2(source, searchValue, startIdx = 0) {
     {
       title: `Is it a OO word?`,
       question: `Define a function, 'doubleO, that accepts one argument;
-      a string. 
+      a string.
       From the given string determine if the letters "oo" occur next to each other.
       If 'oo' does occur in the string return true if not return false
       For example:
@@ -525,14 +525,14 @@ function myIndexOf2(source, searchValue, startIdx = 0) {
         it('returns true if oo appears in string',() => {
           let returnedValue = doubleO('cool guy');
           expect(returnedValue).to.equal(true);
-        })
+        });
         it('returns false if oo does not appear in string', () =>{
           let returnedValue = doubleO('hola guapo');
           expect(returnedValue).to.equal(false);
-        })
+        });
       });`,
       difficulty: `easy`,
-      solution: `// Option 1 
+      solution: `// Option 1
       const doubleO = (str) => {
         if(str.indexOf('oo') !== -1){
                return true
@@ -546,7 +546,7 @@ function myIndexOf2(source, searchValue, startIdx = 0) {
       question: `Define a function named whoWho, the function accepts on argument
       an array of strings. Everytime the word dog appears, move it to a second arr and return
       the new array. If there are no dogs to be let out return an empty array;
-      For example: 
+      For example:
       whoWho(['hi','how', 'is', 'it', 'going']) ===> return []
       whoWho(['cat','cat', 'dog', 'snake', 'raptop', 'dog']) ===> return [dog, dog]
       whoWho(['you','got','this','dog']) ====> return [dog]`,
@@ -561,21 +561,21 @@ function myIndexOf2(source, searchValue, startIdx = 0) {
       testSpecs: `describe('whoWho', () => {
         it('is a function', () => {
           expect(typeof whoWho).to.equal('function');
-        })
+        });
         it('returns an array', () => {
           let returnedValue = whoWho([]);
           expect(typeof returnedValue).to.equal('object');
-        })
+        });
         it('returns an empty array if there are no dogs', () => {
           let returnedValue = whoWho(['only','cats','here']);
           expect(returnedValue).to.equal([]);
-        })
+        });
         it('returns an array containing all the dogs from the first array', () => {
           let returnedValue = whoWhol(['dog', 'dog', 'dog', 'cat', 'dog' ]);
           expect(returnedValue).to.equal(['dog','dog','dog','dog']);
-        })
+        });
 
-      })`,
+      });`,
       difficulty: `easy`,
       solution: `// Option 1 :
       const whoWho = (arr) => {
@@ -597,7 +597,7 @@ function myIndexOf2(source, searchValue, startIdx = 0) {
       doubleIt([5,5,5]) ====> return [10 , 10 ,10 ]`,
       starterCode: `/* These prompts are provided to get you started,
     but are not the only way to attak the problem.
-    Feel free to delete all of the below and start your own code. 
+    Feel free to delete all of the below and start your own code.
     */
    function doubleIt(array) {
       }`,
@@ -612,12 +612,12 @@ function myIndexOf2(source, searchValue, startIdx = 0) {
         it('returns a doubled single element array', () => {
           let returnedValue = doubleIt([4]);
           expect(returnedValue).to.equal([8]);
-        })
+        });
         it('returns a double multi element array', () => {
           let returnedValue = doubleIt([1,2,3,4,5,6]);
           expect(returnedValue).to.equal([2,4,6,8,10,12]);
-        })
-      })`,
+        });
+      });`,
       difficulty: `easy`,
       solution: `//Option 1:
       const doubleIt = (arr) => {

@@ -7,8 +7,9 @@ const Timer = () => {
   const users = useSelector((state) => state.users);
   const room = useSelector((state) => state.room);
   const timer = useSelector((state) => state.timer);
+  const gameStatus = useSelector((state) => state.gameStatus);
 
-  let completed = ((150 - timer) / 150) * 100;
+  let completed;
 
   const container = {
     margin: '10px auto',
@@ -23,18 +24,32 @@ const Timer = () => {
     backgroundColor: '#2c3437',
     animation: 'gradualshake 0.3s infinite 120s, boldshake 0.3s infinite 135s',
   };
-  const containerStyles = {
-    borderRadius: '30px',
-    backgroundColor: '#8B0000',
-    boxShadow: '0 0 40px #8B0000',
-    width: `${completed}%`,
-    animation: 'test 150s',
-  };
+  let containerStyles = {};
+
+  if (gameStatus === 'nonepass') {
+    completed = ((15 - timer) / 15) * 100;
+    containerStyles = {
+      borderRadius: '30px',
+      backgroundColor: '#8B0000',
+      boxShadow: '0 0 40px #8B0000',
+      width: `${completed}%`,
+      animation: 'test 15s',
+    };
+  } else {
+    completed = ((150 - timer) / 150) * 100;
+    containerStyles = {
+      borderRadius: '30px',
+      backgroundColor: '#8B0000',
+      boxShadow: '0 0 40px #8B0000',
+      width: `${completed}%`,
+      animation: 'test 150s',
+    };
+  }
 
   const fillerStyles = {
     height: '18px',
     borderRadius: '30px',
-    transition: '.4s linear',
+    transition: 'linear',
     transitionProperty: 'width, backgroundColor',
   };
 

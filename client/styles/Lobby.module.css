@@ -3,27 +3,45 @@
 }
 .lobbyWrapper {
   display: grid;
-  grid-template-columns: auto auto auto;
-  height: 25em;
+  grid-template-columns: auto auto;
+  height: 10em;
 }
 .element {
-  width: 100%;
-  height: 100%;
+  width: 60%;
+  height: 90%;
+  margin-left: auto;
+  margin-right: auto;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .avatar {
   position: absolute;
   bottom: 30%;
-  left: 27%;
-  width: 13em;
-  height: 8em;
+  width: 6em;
+  height: 6em;
 }
 .name {
   position: absolute;
   bottom: 1em;
-  left: 43%;
+  justify-content: center;
+  align-items: center;
   color: #ff6347;
+  box-shadow: 0 0 40px #ff6347;
+
   text-transform: uppercase;
-  font-family: fantasy, monospace;
+  font-family: Marker Felt, fantasy, monospace;
+  font-weight: bolder;
   letter-spacing: 0.15em;
+}
+
+.lobbyText {
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 1rem;
+  background-color: rgba(44, 47, 49, 0);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 200ms ease-in;
 }

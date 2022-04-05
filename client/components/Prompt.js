@@ -7,6 +7,8 @@ import { addPassedAnswers } from '../store/passAnswers';
 import { setFailedVotes } from '../store/failVoting';
 import { setPassedVotes } from '../store/passVoting';
 import { userNewRound } from '../store';
+import styles from '../styles/Prompt.module.css';
+import { setRoundNumber } from '../store/roundNumber';
 
 const Prompt = () => {
   const dispatch = useDispatch();
@@ -22,12 +24,19 @@ const Prompt = () => {
   const timer = useSelector((state) => state.timer);
 
   const users = useSelector((state) => state.users);
+  const round = useSelector((state) => state.round);
   const didMountRef = useRef(false);
 
   useEffect(() => {
     room.send('startTimer');
     dispatch(userNewRound());
   }, []);
+
+  useEffect(() => {
+    room.send('round');
+    dispatch(setRoundNumber(round + 1));
+  }, []);
+
   room.state.failVotes.onAdd = (votes, key) => {
     dispatch(setFailedVotes(key, votes));
   };
@@ -99,19 +108,8 @@ const Prompt = () => {
   }
 
   return (
-    <div className="prompt-container">
-      {/* <div>
-        {submitted ? (
-          <iframe
-            id="mochaTester"
-            srcDoc={testHTML}
-            sandbox="allow-scripts allow-same-origin"
-          />
-        ) : (
-          ''
-        )}
-      </div> */}
-      <div className="prompt-solution">
+    <div className={styles.promptContainer}>
+      <div className={styles.promptSolution}>
         <Editor
           defaultLanguage="javascript"
           theme="vs-dark"
@@ -125,11 +123,15 @@ const Prompt = () => {
 
       {submitted ? (
         <div>
-          <iframe id="mochaTester" srcDoc={testHTML} sandbox="allow-scripts allow-same-origin" />
+          <iframe
+            id="mochaTester"
+            srcDoc={testHTML}
+            sandbox="allow-scripts allow-same-origin"
+          />
         </div>
       ) : (
         <div>
-          <div className="prompt-solution">
+          <div className={styles.promptSolution}>
             <Editor
               defaultLanguage="javascript"
               theme="vs-dark"
@@ -141,35 +143,50 @@ const Prompt = () => {
               }}
             />
           </div>
-          <div className="submit-prompt-button">
-            <button onClick={() => clickHandler()}>Submit</button>
-          </div>
         </div>
       )}
-      <div className="finished-submission-list">
-        <div className="passed-users">
-          <div>Passed</div>
-          <div>
+      <div className={styles.votingSubmitContainer}>
+        <div className={styles.finishedSubmissionList}>
+          <div className={styles.passedUsers}>
+            <h4>Passed</h4>
+
             {Object.keys(passedAnswers).map((userKey) => {
               return (
-                <div key={userKey} className="user-container">
-                  <p>{users[userKey].username}</p>
+                <div key={userKey} className={styles.passedUserContainer}>
+                  <img
+                    className={styles.avatar}
+                    src={users[userKey].avatarURL}
+                  />
+                  <p className={styles.username}> {users[userKey].username}</p>
                 </div>
               );
             })}
           </div>
-        </div>
-        <div className="failed-users">
-          <div>Failed</div>
-          <div>
+
+          <div className={styles.failedUsers}>
+            <h4>Failed</h4>
+
             {Object.keys(failedAnswers).map((userKey) => {
               return (
-                <div className="user-container" key={userKey}>
-                  <p>{users[userKey].username}</p>
+                <div key={userKey} className={styles.failedUserContainer}>
+                  <img
+                    className={styles.avatar}
+                    src={users[userKey].avatarURL}
+                  />
+                  <p className={styles.username}> {users[userKey].username}</p>
                 </div>
               );
             })}
           </div>
+          <div className={styles.divider}></div>
+        </div>
+        <div className={styles.submitPromptButton}>
+          <button
+            className={styles.submitBtn}
+            disabled={submitted}
+            onClick={() => clickHandler()}>
+            Submit
+          </button>
         </div>
       </div>
     </div>

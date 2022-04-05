@@ -14,6 +14,7 @@ import passedVotesReducer from './passVoting';
 import messageReducer from './message';
 import timerReducer from './timer';
 import hostKeyReducer from './hostKey';
+import roundNumberReducer from './roundNumber';
 const USER_LEAVE_ROOM = 'USER_LEAVE_ROOM';
 const USER_NEW_ROUND = 'USER_NEW_ROUND';
 export const userLeaveRoom = (action) => {
@@ -42,6 +43,7 @@ const rootReducer = (state, action) => {
         answer,
         timer,
         hostKey,
+        round,
       } = state;
       state = {
         room,
@@ -52,6 +54,7 @@ const rootReducer = (state, action) => {
         answer,
         timer,
         hostKey,
+        round,
       };
       return reducer(state, action);
     }
@@ -72,6 +75,7 @@ const reducer = combineReducers({
   passedVotes: passedVotesReducer,
   timer: timerReducer,
   hostKey: hostKeyReducer,
+  round: roundNumberReducer,
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))

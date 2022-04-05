@@ -3,6 +3,7 @@ import Editor from '@monaco-editor/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setFailedVotes } from '../store/failVoting';
 import { setPassedVotes } from '../store/passVoting';
+import styles from '../styles/Vote.module.css';
 
 const Vote = () => {
   const editorRef = useRef(null);
@@ -13,6 +14,11 @@ const Vote = () => {
   const users = useSelector((state) => state.users);
   const room = useSelector((state) => state.room);
   const currPrompt = useSelector((state) => state.prompt);
+  const gameStatus = useSelector((state) => state.gameStatus);
+
+  useEffect(() => {
+    room.send('resetTimer');
+  }, []);
   //Get Current Round's user: vote Object
   const voteList = useSelector((state) => {
     if (state.gameStatus === 'failvote') {
@@ -64,8 +70,8 @@ const Vote = () => {
   };
 
   return (
-    <div className="prompt-container">
-      <div className="prompt-solution">
+    <div className={styles.promptContainer}>
+      <div className={styles.promptSolution}>
         <Editor
           defaultLanguage="javascript"
           theme="vs-dark"
@@ -77,7 +83,7 @@ const Vote = () => {
         />
       </div>
       <div>
-        <div className="prompt-solution">
+        <div className={styles.promptSolution}>
           <Editor
             defaultLanguage="javascript"
             theme="vs-dark"
@@ -89,31 +95,48 @@ const Vote = () => {
             onMount={handleEditorDidMount}
           />
         </div>
-        <div className="submit-prompt-button">
+      </div>
+      <div className={styles.votingSubmitContainer}>
+        <div className={styles.finishedSubmissionList}>
+          <h4>
+            Vote on your favorite
+            {gameStatus == 'failvote'
+              ? ' failed solution.'
+              : ' passed solution.'}
+          </h4>
+          <div className={styles.users}>
+            {Object.keys(submissions).map((userKey) => {
+              return (
+                <div
+                  key={userKey}
+                  className={styles.userContainer}
+                  onClick={() => changeFocus(userKey)}>
+                  <img
+                    className={styles.avatar}
+                    src={users[userKey].avatarURL}
+                  />
+                  <p>
+                    {users[userKey].username == '' ? (
+                      <br />
+                    ) : (
+                      users[userKey].username
+                    )}
+                  </p>
+                  <div className={styles.totalVotes}>
+                    Total Votes: {voteList[userKey] ? voteList[userKey] : 0}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className={styles.submitPromptButton}>
           <button
+            className={styles.submitBtn}
             onClick={(e) => voteHandler(e, userFocus, room.state.gameStatus)}
             disabled={userFocus === '' || voted}>
             {voted ? `You've already voted for ${votedFor}!` : 'Vote!'}
           </button>
-        </div>
-      </div>
-
-      <div className="finished-submission-list">
-        <div>
-          Players
-          <ul>
-            {Object.keys(submissions).map((userKey) => {
-              return (
-                <li>
-                  <div key={userKey}>
-                    <button value={userKey} onClick={() => changeFocus(userKey)}>
-                      {users[userKey].username}: {voteList[userKey] ? voteList[userKey] : 0}
-                    </button>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
         </div>
       </div>
     </div>

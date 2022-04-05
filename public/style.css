@@ -14,15 +14,91 @@ a {
   text-decoration: none;
 }
 
+.nonelinks {
+  list-style-type: circle;
+  color: lightgray;
+}
+
 ::-webkit-scrollbar {
   display: none;
 }
 .hostbar {
-  background-color: #6d8790;
+  border-radius: 25px;
   display: flex;
-  justify-content: flex-start;
+  flex-direction: row;
+  text-align: center;
+  justify-content: space-between;
   align-items: center;
-  height: 40px;
+  width: 50%;
+  margin: auto;
+  height: 4rem;
+  background-color: rgba(3, 28, 41, 0.9);
+  color: white;
+
+  border: rgba(255, 255, 255, 1);
+  border-style: solid;
+}
+
+a.nonelinks {
+  color: white;
+}
+
+.hostbutton {
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 1rem;
+  /* margin-left: 1rem;
+  margin-right: 1rem; */
+  background-color: rgba(44, 47, 49, 0);
+  color: white;
+  border: none;
+  cursor: pointer;
+  /* align-content: end; */
+  transition: all 200ms ease-in;
+  z-index: 2;
+  border: 1px solid lime;
+}
+.hostdetails {
+  list-style: none;
+  width: 100%;
+  text-decoration: none;
+  align-content: center;
+  margin: auto;
+  margin-right: 1em;
+  color: white;
+  transition: all 200ms ease-in;
+  cursor: pointer;
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 1rem;
+  /* position: relative; */
+  /* top: 0em;
+  right: 1em; */
+}
+.gameControl {
+  list-style: none;
+  width: 100%;
+  text-decoration: none;
+  margin: auto;
+  /* align-content: end; */
+  color: white;
+  transition: all 200ms ease-in;
+  cursor: pointer;
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 1rem;
+  /* position: relative; */
+}
+
+.congratsFail {
+  list-style: none;
+  width: 50%;
+  text-decoration: none;
+  color: white;
+  margin: auto;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 200ms ease-in;
+  cursor: pointer;
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 1rem;
 }
 
 .join-create-form {
@@ -62,23 +138,12 @@ a {
 .create-room-btn:hover {
   background-color: #ffffff;
 }
-
+a.faillinks {
+  color: lightgray;
+  list-style-type: square;
+}
 .create-room-btn:active {
   background-color: #e9ecea;
-}
-
-.prompt-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.prompt-solution {
-  display: flex;
-  flex-direction: column;
-  margin: 1em 0 0 2em;
-  width: 35vw;
-  height: 75vh;
 }
 
 #mochaTester {
@@ -87,32 +152,6 @@ a {
   margin: 1em 0 0 2em;
   width: 35vw;
   height: 75vh;
-}
-.submit-prompt-button {
-  display: flex;
-  flex-direction: column;
-  margin: 0.5em 0 0 2em;
-}
-.finished-submission-list {
-  margin: 1em 0 0 2em;
-  display: flex;
-  flex-direction: column;
-}
-.passed-users {
-  font-family: 'Courier New', Courier, monospace;
-  font-weight: bold;
-}
-
-.failed-users {
-  margin-top: 7em;
-  font-family: 'Courier New', Courier, monospace;
-  font-weight: bold;
-}
-
-.user-container {
-  height: 2em;
-  width: 10em;
-  border: 0.25 solid black;
 }
 
 #chat-comp {
@@ -165,26 +204,14 @@ a {
   }
   50% {
     width: 50%;
-    background: #04bf0d;
-  }
-  75% {
-    width: 75%;
-    background: #04bf0d;
-    box-shadow: 0 0 10px #04bf0d;
-  }
-
-  90% {
-    width: 90%;
     background: darkgoldenrod;
     box-shadow: 0 0 10px darkgoldenrod;
   }
-
-  95% {
-    width: 95%;
+  75% {
+    width: 75%;
     background: #f91616;
     box-shadow: 0 0 20px #f91616;
   }
-
   100% {
     width: 100%;
     background: darkred;
